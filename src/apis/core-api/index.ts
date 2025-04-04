@@ -17,3 +17,4 @@ export { $UserDto } from './schemas/$UserDto';
 export { AuthControllerService } from './services/AuthControllerService';
 export { AuthenticationService } from './services/AuthenticationService';
 export { SettingsControllerService } from './services/SettingsControllerService';
+export { UserControllerService } from './services/UserControllerService';

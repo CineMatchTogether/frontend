@@ -8,3 +8,8 @@ export enum AuthorizationStatus {
     Auth = 'AUTH',
     NoAuth = 'NO_AUTH',
 }
+
+export enum NameSpace {
+    User = 'USER',
+    Movies = 'MOVIES'
+}

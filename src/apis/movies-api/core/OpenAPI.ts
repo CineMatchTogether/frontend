@@ -1,6 +1,7 @@
 import type { ApiRequestOptions } from './ApiRequestOptions';
 import type { TConfig, TResult } from './types';
-const apiUrl: string = import.meta.env.VITE_API_URL;
+
+const apiUrl: string = import.meta.env.VITE_MOVIES_API_URL;
 
 type Resolver<T> = (options: ApiRequestOptions) => Promise<T>;
 type Headers = Record<string, string>;
@@ -28,7 +29,7 @@ export const OpenAPI: OpenAPIConfig = {
 	TOKEN: undefined,
 	USERNAME: undefined,
 	VERSION: '0',
-	WITH_CREDENTIALS: true,
+	WITH_CREDENTIALS: false,
 };
 
 export const mergeOpenApiConfig = <T extends TResult>(config: OpenAPIConfig, overrides: TConfig<T>) => {

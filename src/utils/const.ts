@@ -1,6 +1,7 @@
 export enum AppRoute {
     Main = '/',
     Login = '/login',
+    OAuthHandler = '/oauth-handler'
 }
 
 export enum AuthorizationStatus {
@@ -11,5 +12,6 @@ export enum AuthorizationStatus {
 
 export enum NameSpace {
     User = 'USER',
-    Movies = 'MOVIES'
+    Movies = 'MOVIES',
+    WebSockets = 'WEBSOCKETS'
 }

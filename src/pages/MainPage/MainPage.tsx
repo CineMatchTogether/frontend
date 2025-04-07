@@ -8,14 +8,14 @@ import { MovieList } from "../../modules/movie/MovieList/MovieList";
 import { useEffect } from "react";
 import { fetchUserWatchHistory } from "../../store/moveisProcess/moviesActions";
 import { useColors } from "../../hooks/useColors";
-import { LuBrainCircuit, LuUser } from "react-icons/lu";
+import { LuUser } from "react-icons/lu";
 
 export const MainPage = () => {
   const movies = useAppSelector(getUserWatchHistory);
   const isMoviesLoading = useAppSelector(getIsUserWatchHistoryLoading);
   const dispatch = useAppDispatch();
 
-  const { mainColor, subAltColor, textColor, bgColor } = useColors();
+  const { mainColor, subAltColor, bgColor } = useColors();
 
   useEffect(() => {
     dispatch(fetchUserWatchHistory());
@@ -39,7 +39,7 @@ export const MainPage = () => {
           border={0}
           mt={4}
         >
-          <Tabs.Trigger
+          {/* <Tabs.Trigger
             color={textColor}
             backgroundColor={subAltColor}
             value="recommendation"
@@ -48,7 +48,7 @@ export const MainPage = () => {
           >
             <LuBrainCircuit />
             Рекомендации
-          </Tabs.Trigger>
+          </Tabs.Trigger> */}
           <Tabs.Trigger
             colorPalette="pink"
             backgroundColor={subAltColor}
@@ -69,7 +69,7 @@ export const MainPage = () => {
             )}
           </Center>
         </Tabs.Content>
-        <Tabs.Content value="recommendation">Manage your projects</Tabs.Content>
+        {/* <Tabs.Content value="recommendation">Manage your projects</Tabs.Content> */}
       </Tabs.Root>
     </Box>
   );

@@ -5,6 +5,7 @@ import type { PersonDto } from './PersonDto';
 export type MovieDto = {
 	id?: number;
 	name?: string;
+	enName?: string;
 	description?: string;
 	shortDescription?: string;
 	year?: number;

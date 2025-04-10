@@ -2,11 +2,14 @@ import { Box, Button, Center, Container, Flex } from "@chakra-ui/react";
 import { YandexIcon } from "../../assets/icons/YandexIcon";
 import { useColors } from "../../hooks/useColors";
 import { AuthenticationService } from "../../apis/core-api";
+import { useCallback } from "react";
 
 export const LoginPage = () => {
   const { textColor, subAltColor } = useColors();
 
-  const yandexAuth = AuthenticationService.redirectToOauth2Yandex;
+  const yandexAuth = useCallback(() => {
+    AuthenticationService.redirectToOauth2Yandex();
+  }, []);
 
   return (
     <Center h="100%">

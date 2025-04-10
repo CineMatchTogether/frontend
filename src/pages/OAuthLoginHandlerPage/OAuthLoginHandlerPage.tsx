@@ -40,7 +40,7 @@ export const OAuthLoginHandlerPage = () => {
   useEffect(() => {
     if (isConnected && !oauthSent) {
       setTimeout(() => {
-        dispatch(sendMessage({ messageType: MessageType.AuthYandexStatus }));
+        dispatch(sendMessage({ messageType: MessageType.FetchKinopoiskId }));
         setOauthSent(true);
       }, 3000);
     }

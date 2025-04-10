@@ -40,7 +40,7 @@ export const MovieCard = ({ movie }: MovieCardProps) => {
         </Text>
 
         <HStack gap={4}>
-          {kpRating && (
+          {kpRating ? (
             <Badge
               color={subAltColor}
               backgroundColor={mainColor}
@@ -49,8 +49,8 @@ export const MovieCard = ({ movie }: MovieCardProps) => {
             >
               KP: {kpRating.toFixed(1)}
             </Badge>
-          )}
-          {imdbRating && (
+          ) : null}
+          {imdbRating ? (
             <Badge
               color={subAltColor}
               backgroundColor={mainColor}
@@ -59,7 +59,7 @@ export const MovieCard = ({ movie }: MovieCardProps) => {
             >
               IMDb: {imdbRating.toFixed(1)}
             </Badge>
-          )}
+          ) : null}
         </HStack>
       </VStack>
     </Card.Root>

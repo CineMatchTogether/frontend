@@ -1,5 +1,5 @@
 export enum MessageType {
-    AuthYandexStatus = 'AUTH_YANDEX_STATUS',
+    FetchKinopoiskId = 'FETCH_KINOPOISK_ID',
     FetchKinopoiskHistory = 'FETCH_KINOPOISK_HISTORY',
 }
 

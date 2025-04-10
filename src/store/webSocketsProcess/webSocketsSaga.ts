@@ -106,12 +106,12 @@ function* handleWebSocketMessages(
         } else {
           const message = event.data as WebSocketMessage;
           switch (message.messageType) {
-            case MessageType.AuthYandexStatus:
-              console.log("Processing AUTH_YANDEX_STATUS:", message.content);
+            case MessageType.FetchKinopoiskId:
+              console.log("Processing FETCH_KINOPOISK_ID:", message.content);
               if (message.messageStatus === MessageStatus.Success) {
                 yield put(oauthMessageReceived(message));
               } else if (message.messageStatus === MessageStatus.Error) {
-                yield put(setError("Auth Yandex failed: " + (message.content || "Unknown error")));
+                yield put(setError("Fetch Kinopoisk id failed: " + (message.content || "Unknown error")));
               }
               break;
 

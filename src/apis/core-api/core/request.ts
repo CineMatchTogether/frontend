@@ -8,6 +8,8 @@ import type { ApiResult } from './ApiResult';
 import { CancelablePromise } from './CancelablePromise';
 import type { OnCancel } from './CancelablePromise';
 import type { OpenAPIConfig } from './OpenAPI';
+import { useAppDispatch } from '../../../hooks';
+import { refreshAction } from '../../../store/userProcess/userActions';
 
 export const isString = (value: unknown): value is string => {
 	return typeof value === 'string';
@@ -274,7 +276,7 @@ export const catchErrorCodes = (options: ApiRequestOptions, result: ApiResult): 
  * @returns CancelablePromise<T>
  * @throws ApiError
  */
-export const request = <T>(config: OpenAPIConfig, options: ApiRequestOptions, axiosClient: AxiosInstance = axios): CancelablePromise<T> => {
+export const request = <T>(config: OpenAPIConfig, options: ApiRequestOptions, axiosClient: AxiosInstance = axios, attempt = 0): CancelablePromise<T> => {
 	return new CancelablePromise(async (resolve, reject, onCancel) => {
 		try {
 			const url = getUrl(config, options);
@@ -299,7 +301,23 @@ export const request = <T>(config: OpenAPIConfig, options: ApiRequestOptions, ax
 
 				resolve(result.body);
 			}
-		} catch (error) {
+		} catch (error: unknown) {
+			const axiosError = error as AxiosError;
+
+      		// если получили 401 и это первая попытка — делаем refresh
+			if (axiosError.response?.status === 401 && attempt === 0) {
+				try {
+					const dispatch = useAppDispatch();
+					await dispatch(refreshAction());
+					const retryResult = await request<T>(config, options, axiosClient, attempt + 1);
+					resolve(retryResult);
+					return;
+				} catch (refreshError) {
+					reject(refreshError);
+					return;
+				}
+			}
+
 			reject(error);
 		}
 	});

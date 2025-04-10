@@ -9,7 +9,8 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "core_gen": "openapi-ts --input http://localhost:8080/v3/api-docs --output ./src/apis/core-api --client axios",
-    "movies_gen": "openapi-ts --input http://localhost:8081/v3/api-docs --output ./src/apis/movies-api --client axios"
+    "movies_gen": "openapi-ts --input http://localhost:8081/v3/api-docs --output ./src/apis/movies-api --client axios",
+    "rec_gen": "openapi-ts --input http://localhost:8082/apispec_1.json --output ./src/apis/recommendation-api --client axios"
   },
   "dependencies": {
     "@chakra-ui/react": "^3.15.0",

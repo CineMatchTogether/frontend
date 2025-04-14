@@ -1,7 +1,7 @@
 import { Provider } from "./components/ui/provider";
 import { Box } from "@chakra-ui/react";
 import { useColors } from "./hooks/useColors";
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { HashRouter, Navigate, Route, Routes } from "react-router-dom";
 import { AppRoute, AuthorizationStatus } from "./utils/const";
 import { LoginPage } from "./pages/LoginPage/LoginPage";
 import { MainPage } from "./pages/MainPage/MainPage";
@@ -23,7 +23,7 @@ function App() {
     <>
       <Provider>
         <Box h="100vh" w="100vw" backgroundColor={bgColor}>
-          <BrowserRouter>
+          <HashRouter>
             <Routes>
               {/* Только для неавторизованных */}
               <Route
@@ -55,7 +55,7 @@ function App() {
                 <Route path="*" element={<Navigate to={AppRoute.Main} />} />
               </Route>
             </Routes>
-          </BrowserRouter>
+          </HashRouter>
         </Box>
       </Provider>
     </>

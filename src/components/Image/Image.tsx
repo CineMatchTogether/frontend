@@ -1,86 +1,42 @@
-import {
-  useState,
-  useEffect,
-  useRef,
-  useCallback,
-  MutableRefObject,
-} from "react";
-import { Image } from "@chakra-ui/react";
+import { useInView } from "react-intersection-observer";
+import { Image, Skeleton } from "@chakra-ui/react";
+import { useState } from "react";
 
-const listenerCallbacks = new WeakMap();
-
-const handleIntersections = (entries: IntersectionObserverEntry[]) => {
-  entries.forEach((entry) => {
-    if (!listenerCallbacks.has(entry.target)) {
-      return;
-    }
-
-    const callback = listenerCallbacks.get(entry.target);
-
-    if (!entry.isIntersecting) {
-      return;
-    }
-
-    observer.unobserve(entry.target);
-    listenerCallbacks.delete(entry.target);
-    callback();
-  });
-};
-
-const observer = new IntersectionObserver(handleIntersections, {
-  threshold: 0.15,
-});
-
-const useIntersection = (
-  ref: MutableRefObject<HTMLDivElement | null>,
-  callback: () => void
-) => {
-  useEffect(() => {
-    if (ref.current) {
-      listenerCallbacks.set(ref.current, callback);
-      observer.observe(ref.current);
-    }
-
-    return () => {
-      if (ref.current) {
-        listenerCallbacks.delete(ref.current);
-        observer.unobserve(ref.current);
-      }
-    };
-  }, [callback]);
-};
-
-type ImageProps = {
+type LazyImageProps = {
   src: string;
+  alt?: string;
+  height?: string; 
 };
 
-export const LazyImage = ({ src }: ImageProps) => {
-  const [isInView, setIsInView] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
-
-  const callback = useCallback(() => {
-    setIsInView(true);
-  }, [setIsInView]);
-
-  useIntersection(ref, callback);
-
+export const LazyImage = ({ src, alt = "", height = "500px" }: LazyImageProps) => {
+  const { ref, inView } = useInView({
+    triggerOnce: true,
+    threshold: 0.15,
+  });
+  const [isLoaded, setIsLoaded] = useState(false);
+  
   return (
     <div
       ref={ref}
       style={{
         width: "100%",
-        height: `${isInView ? "auto" : "500px"}`,
+        height: inView ? "auto" : height,
+        minHeight: height,
       }}
     >
-      {isInView && (
+      {inView && !isLoaded && <Skeleton height={height} />}
+      {inView && (
         <Image
-          borderTopRadius="2xl"
           src={src}
+          alt={alt}
+          borderTopRadius="2xl"
           w="100%"
+          onLoad={() => setIsLoaded(true)}
+          style={{ display: isLoaded ? "block" : "none" }}
         />
       )}
     </div>
   );
 };
 
-export default Image;
+export default LazyImage;

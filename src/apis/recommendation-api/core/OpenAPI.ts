@@ -23,7 +23,9 @@ export const OpenAPI: OpenAPIConfig = {
 	BASE: `${apiUrl}`,
 	CREDENTIALS: 'include',
 	ENCODE_PATH: undefined,
-	HEADERS: undefined,
+	HEADERS: {
+		'ngrok-skip-browser-warning': 'true',
+	},
 	PASSWORD: undefined,
 	RESULT: 'body',
 	TOKEN: undefined,

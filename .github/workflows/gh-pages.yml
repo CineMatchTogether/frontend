@@ -22,9 +22,11 @@ jobs:
       env:
         VITE_CORE_API_URL: ${{ secrets.VITE_CORE_API_URL }}
         VITE_MOVIES_API_URL: ${{ secrets.VITE_MOVIES_API_URL }}
+        VITE_RECOMMEND_API_URL: ${{ secrets.VITE_RECOMMEND_API_URL }}
       run: |
         echo "VITE_CORE_API_URL=$VITE_CORE_API_URL" >> .env
         echo "VITE_MOVIES_API_URL=$VITE_MOVIES_API_URL" >> .env
+        echo "VITE_RECOMMEND_API_URL=$VITE_RECOMMEND_API_URL" >> .env
     - name: Build app
       working-directory: .
       run: npm run build

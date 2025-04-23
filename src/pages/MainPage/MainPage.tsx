@@ -8,9 +8,10 @@ import { MovieList } from "../../modules/movie/MovieList/MovieList";
 import { useEffect } from "react";
 import { fetchUserWatchHistory } from "../../store/moveisProcess/moviesActions";
 import { useColors } from "../../hooks/useColors";
-import { LuBrainCircuit, LuUser } from "react-icons/lu";
+import { LuBrainCircuit, LuSquarePlus, LuUser } from "react-icons/lu";
 import { RecMovieList } from "../../modules/movie/RecMovieList/RecMovieList";
 import './style.css';
+import { MovieSearch } from "../../modules/movie/MovieSearch/MovieSearch";
 
 export const MainPage = () => {
   const movies = useAppSelector(getUserWatchHistory);
@@ -61,6 +62,16 @@ export const MainPage = () => {
             <LuUser />
             <span className="tab-text">История просмотра</span>
           </Tabs.Trigger>
+          <Tabs.Trigger
+            colorPalette="pink"
+            backgroundColor={subAltColor}
+            value="adding"
+            _focus={{ outline: "none", boxShadow: "none" }}
+            _selected={{ backgroundColor: mainColor, color: bgColor }}
+          >
+            <LuSquarePlus />
+            <span className="tab-text">Добавить фильм</span>
+          </Tabs.Trigger>
         </Tabs.List>
         <Tabs.Content
           value="history"
@@ -85,6 +96,14 @@ export const MainPage = () => {
           <Center h="100%">
             <RecMovieList />
           </Center>
+        </Tabs.Content>
+        <Tabs.Content
+          value="adding"
+          flex="1"
+          overflow="scroll"
+          scrollbar="hidden"
+        >
+            <MovieSearch />
         </Tabs.Content>
       </Tabs.Root>
     </Box>

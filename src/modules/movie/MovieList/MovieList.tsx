@@ -1,12 +1,14 @@
 import { Box, Flex } from "@chakra-ui/react";
 import { MovieDto } from "../../../apis/movies-api";
 import { MovieCard } from "../MovieCard/MovieCard";
+import { AddedMovieCard } from "../MovieCard/AddedMovieCard";
 
 interface MovieListProps {
   movies: MovieDto[];
+  addable?: boolean;
 }
 
-export const MovieList = ({ movies }: MovieListProps) => {
+export const MovieList = ({ movies, addable = false }: MovieListProps) => {
   return (
     <Box maxH="100%" overflowY="auto" scrollbar="hidden">
       <Flex
@@ -18,6 +20,8 @@ export const MovieList = ({ movies }: MovieListProps) => {
         justify="center"
       >
         {movies.map((movie) => (
+          addable ?
+          <AddedMovieCard key={movie.id || movie.name} movie={movie} /> :
           <MovieCard key={movie.id || movie.name} movie={movie} />
         ))}
       </Flex>

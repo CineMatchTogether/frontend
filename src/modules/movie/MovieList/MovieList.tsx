@@ -1,16 +1,16 @@
 import { Box, Flex } from "@chakra-ui/react";
 import { MovieDto } from "../../../apis/movies-api";
 import { MovieCard } from "../MovieCard/MovieCard";
-import { AddedMovieCard } from "../MovieCard/AddedMovieCard";
+import { MovieCardType } from "../MovieCard/const";
 
 interface MovieListProps {
   movies: MovieDto[];
-  addable?: boolean;
+  movieCardType?: MovieCardType;
 }
 
-export const MovieList = ({ movies, addable = false }: MovieListProps) => {
+export const MovieList = ({ movies, movieCardType}: MovieListProps) => {
   return (
-    <Box maxH="100%" overflowY="auto" scrollbar="hidden">
+    <Box h="100%" overflowY="auto" scrollbar="hidden">
       <Flex
         align="start"
         direction="row"
@@ -20,9 +20,7 @@ export const MovieList = ({ movies, addable = false }: MovieListProps) => {
         justify="center"
       >
         {movies.map((movie) => (
-          addable ?
-          <AddedMovieCard key={movie.id || movie.name} movie={movie} /> :
-          <MovieCard key={movie.id || movie.name} movie={movie} />
+          <MovieCard key={movie.id || movie.name} movie={movie} movieCardType={movieCardType} />
         ))}
       </Flex>
     </Box>

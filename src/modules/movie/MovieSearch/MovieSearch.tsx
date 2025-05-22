@@ -7,6 +7,7 @@ import {
 import { Box, Input, Spinner, VStack, Text } from "@chakra-ui/react";
 import { MovieList } from "../MovieList/MovieList";
 import { useColors } from "../../../hooks/useColors";
+import { MovieCardType } from "../MovieCard/const";
 
 const customDebounce = <T extends (...args: any[]) => void>(
   func: T,
@@ -82,7 +83,7 @@ export const MovieSearch = () => {
       )}
 
       <Box w="full">
-        <MovieList movies={movies} addable={true} />
+        <MovieList movies={movies} movieCardType={MovieCardType.Added} />
       </Box>
     </VStack>
   );

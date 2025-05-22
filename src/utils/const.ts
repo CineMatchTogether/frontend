@@ -1,7 +1,10 @@
 export enum AppRoute {
     Main = '/',
     Login = '/login',
-    OAuthHandler = '/oauth-handler'
+    OAuthHandler = '/oauth-handler',
+    Recommendation = '/recommendation',
+    History = '/history',
+    Adding = '/adding'
 }
 
 export enum AuthorizationStatus {

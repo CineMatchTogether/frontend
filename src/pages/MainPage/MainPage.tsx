@@ -25,7 +25,7 @@ export const MainPage = () => {
   }, []);
 
   return (
-    <Box h="100vh">
+    <Box h="100%">
       <Tabs.Root
         h="100%"
         defaultValue="history"

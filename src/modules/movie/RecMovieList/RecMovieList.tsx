@@ -18,30 +18,29 @@ export const RecMovieList = () => {
   useEffect(() => {
     const fetchRecommendations = async () => {
       try {
-        const movieRec = await RecommendationsService.getRecommendGroup({
+        const movieRec = await RecommendationsService.postRecommendGroup({
           body: {
-            group_watched: [
+            watched_movies: [
               historyMovies
-                .flatMap((m) => m.enName)
-                .filter((name): name is string => typeof name === "string"),
+                .flatMap((m) => m.id)
+                .filter((id) => id != null),
             ],
             top_n: 10,
           },
         });
 
-        const fetches = movieRec.map((m) => {
+        const fetches = movieRec.recommendations.map((m) => {
           if (!m.title) return null;
 
-          return MovieControllerService.getList1({
-            nameContains: m.title.replace(/\s\(\d{4}\)$/, ""),
+          return MovieControllerService.getOne1({
+            id: m.movieId,
           });
         });
 
         const responses = await Promise.all(fetches.filter(Boolean));
 
         const recommendedMovies = responses
-          .map((r) => r?.content?.[0])
-          .filter((movie): movie is MovieDto => movie !== undefined);
+          .filter((m) => m !== null);
 
         setMovies(recommendedMovies);
       } catch (error) {

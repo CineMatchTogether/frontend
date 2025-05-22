@@ -20,8 +20,7 @@ export const LazyImage = ({ src, alt = "", height = "500px" }: LazyImageProps) =
       ref={ref}
       style={{
         width: "100%",
-        height: inView ? "auto" : height,
-        minHeight: height,
+        height: "auto"
       }}
     >
       {inView && !isLoaded && <Skeleton height={height} />}

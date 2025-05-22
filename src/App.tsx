@@ -4,13 +4,15 @@ import { useColors } from "./hooks/useColors";
 import { HashRouter, Navigate, Route, Routes } from "react-router-dom";
 import { AppRoute, AuthorizationStatus } from "./utils/const";
 import { LoginPage } from "./pages/LoginPage/LoginPage";
-import { MainPage } from "./pages/MainPage/MainPage";
 import { useAppDispatch } from "./hooks";
 import { refreshAction } from "./store/userProcess/userActions";
 import { OAuthLoginHandlerPage } from "./pages/OAuthLoginHandlerPage/OAuthLoginHandlerPage";
 import { PrivateRoute } from "./components/PrivateRoute/PrivateRoute";
 import { useEffect } from "react";
-
+import { HistoryPage } from "./pages/HistoryPage/HistoryPage";
+import { Header } from "./components/Header/Header";
+import { RecommendationPage } from "./pages/RecommendationPage/RecommendationPage";
+import { AddingPage } from "./pages/AddiingPage/AddingPage";
 function App() {
   const { bgColor } = useColors();
   const dispatch = useAppDispatch();
@@ -30,7 +32,7 @@ function App() {
                 element={
                   <PrivateRoute
                     requiredStatuses={[AuthorizationStatus.NoAuth]}
-                    redirect={AppRoute.Main}
+                    redirect={AppRoute.History}
                   />
                 }
               >
@@ -47,12 +49,17 @@ function App() {
                   />
                 }
               >
-                <Route path={AppRoute.Main} element={<MainPage />} />
+                <Route element={<Header />}>
+                  <Route path={AppRoute.Recommendation} element={<RecommendationPage />} />
+                  <Route path={AppRoute.History} element={<HistoryPage />} />
+                  <Route path={AppRoute.Adding} element={<AddingPage />} /> 
+                </Route>
+
                 <Route
                   path={AppRoute.OAuthHandler}
                   element={<OAuthLoginHandlerPage />}
                 />
-                <Route path="*" element={<Navigate to={AppRoute.Main} />} />
+                <Route path="*" element={<Navigate to={AppRoute.History} />} />
               </Route>
             </Routes>
           </HashRouter>
